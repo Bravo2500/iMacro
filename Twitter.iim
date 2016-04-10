@@ -1,0 +1,36 @@
+VERSION BUILD=8961227 RECORDER=FX
+'If timeout, wait for 1 sec (default 6 secs)
+SET !TIMEOUT_STEP 1
+'If error i.e.account suspended, ignore the line and continue
+SET !ERRORIGNORE YES
+'First tab
+TAB T=1
+'Set the datasource file (.txt)
+SET !DATASOURCE twitter.txt
+'Start looping from the first line of the datasource file
+SET !LOOP 1
+'Increase the current position in the file with each loop 
+SET !DATASOURCE_LINE {{!LOOP}}
+'Browse the links located at the first column of the datasource file
+URL GOTO={{!COL1}}
+'Emulate user clicking process to report the account
+TAG POS=1 TYPE=A ATTR=CLASS:"fn url alternate-context"
+TAG POS=1 TYPE=BUTTON ATTR=TXT:User<SP>Actions
+TAG POS=1 TYPE=BUTTON ATTR=TXT:Report
+FRAME F=3
+TAG POS=4 TYPE=INPUT:RADIO FORM=ID:report_webview_form ATTR=NAME:report_type
+FRAME F=0
+TAG POS=2 TYPE=BUTTON ATTR=TXT:Next
+FRAME F=3
+TAG POS=2 TYPE=INPUT:RADIO FORM=ID:report_webview_form ATTR=NAME:abuse_type
+FRAME F=0
+TAG POS=2 TYPE=BUTTON ATTR=TXT:Next
+FRAME F=3
+TAG POS=2 TYPE=INPUT:RADIO FORM=ID:report_webview_form ATTR=NAME:victim
+FRAME F=0
+TAG POS=2 TYPE=BUTTON ATTR=TXT:Next
+FRAME F=3
+TAG POS=3 TYPE=INPUT:RADIO FORM=ID:report_webview_form ATTR=NAME:detail
+FRAME F=0
+TAG POS=2 TYPE=BUTTON ATTR=TXT:Next
+TAG POS=4 TYPE=BUTTON ATTR=TXT:Done
